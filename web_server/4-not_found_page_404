@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Configures nginx to have a custom 404 page
+apt-get update -y
+apt-get install nginx -y
+echo "Holberton School" | tee /var/www/html/index.html > /dev/null
+echo "Ceci n'est pas une page" | tee /var/www/html/404.html > /dev/null
+sed -i 's|server_name _;|server_name _;\n\terror_page 404 /404.html;\n\tlocation = /404.html { internal; }|' /etc/nginx/sites-available/default
+service nginx start
